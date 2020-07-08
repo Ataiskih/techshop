@@ -1,5 +1,8 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from product.models import Product
 
 
 def products(request):
-    return HttpResponse("<h1>Список товаров:</h1>")
+    products = Product.objects.all()
+    return render(request, "product/products.html", {"products": products})
