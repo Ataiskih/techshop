@@ -4,5 +4,8 @@ from product.models import Product
 
 
 def products(request):
-    products = Product.objects.all()
-    return render(request, "product/products.html", {"products": products})
+    products = Product.objects.filter(
+        availability_in_store=True)
+    return render(
+        request, "product/products.html", 
+        {"products": products})
