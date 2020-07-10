@@ -7,6 +7,12 @@ class Product(models.Model):
         max_length=255,
         verbose_name="название"
     )
+    image = models.ImageField(
+        null=True,
+        blank=True,
+        upload_to="product_image",
+        verbose_name="изображение товара"
+    )    
     category = models.ForeignKey(
         "Category",
         on_delete=models.SET_NULL,
@@ -28,7 +34,7 @@ class Product(models.Model):
     )
     quantity_purchases = models.IntegerField(
         default=0,
-        verbose_name="колличество продаж"
+        verbose_name="колличество в магазине"
     )
     availability_in_store = models.BooleanField(
         default=True,

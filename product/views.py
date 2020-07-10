@@ -9,3 +9,10 @@ def products(request):
     return render(
         request, "product/products.html", 
         {"products": products})
+
+def product(request, id):
+    product = Product.objects.get(id=id)
+    return render(
+        request, "product/product.html",
+        {"product":product}
+    )

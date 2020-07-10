@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<br>
+<div class="row">
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        {% if product.image %}
+            <img src="{{ product.image.url }}">
+        {% endif %}
+    </div>
+    <div class="col-lg-8 col-md-6 col-sm-12">
+        <h4>{{ product.name }} - 
+            {% if product.availability_in_store %}
+                <button class="btn btn-success">Есть в наличии</button>
+            {% else %}
+                <button class="btn btn-warning">Под заказ</button>
+            {% endif %}</h4>
+        <h4>{{ product.price }} сом</h4>
+        <div>Описание товара: {{ product.description|linebreaks }}</div>
+            <br>
+            Категории: {{ product.category }}
+    </div>
+</div>
+{% endblock %}
