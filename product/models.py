@@ -12,7 +12,7 @@ class Product(models.Model):
         blank=True,
         upload_to="product_image",
         verbose_name="изображение товара"
-    )    
+    )
     category = models.ForeignKey(
         "Category",
         on_delete=models.SET_NULL,
