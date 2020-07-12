@@ -18,6 +18,15 @@
         <div>Описание товара: {{ product.description|linebreaks }}</div>
             <br>
             Категории: {{ product.category }}
+            <div class="form-row text-right">
+                <div class="col-12">
+                    <a href="{% url 'product-edit' product.id %}">
+                        <button class="btn btn-warning">
+                            Редактировать
+                        </button>
+                    </a>
+                </div>
+            </div>
     </div>
 </div>
 {% endblock %}
