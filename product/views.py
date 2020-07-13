@@ -1,12 +1,22 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from product.models import Product
+from product.models import Product, Category
 from product.forms import ProductForm
+from django.db.models import Q 
 
 
 def products(request):
-    products = Product.objects.filter(
-        availability_in_store=True)
+    if "key_word" in request.GET:
+        key = request.GET.get("key_word")
+        products = Product.objects.filter(Q(availability_in_store=True),
+            Q(name__icontains=key) |
+            Q(description__icontains=key) |
+            Q(category__name__contains=key)
+        )
+        products = products.distinct()
+    else:
+        products = Product.objects.filter(
+            availability_in_store=True)
     return render(
         request, "product/products.html",
         {"products": products})
@@ -22,16 +32,25 @@ def product(request, id):
 
 def product_create(request):
     if request.method == "POST":
-        form = ProductForm(request.POST)
+        form = ProductForm(
+            request.POST,
+            request.FILES
+        )
         if form.is_valid():
             form.save()
-            # message = "Автор был добавлен успешно!"
-            return redirect(products)
+            alert = "Товар был добавлен успешно!"
+            return render(
+                request,
+                "product/products.html",
+                {"alert": alert}
+            )
     elif request.method == "GET":
         form = ProductForm()
+        message = "Добавить товар"
         return render(
-            request, "product/form.html",
-            {"form": form}
+            request, 
+            "product/form.html",
+            {"form": form, "message": message}
         )
 
 
@@ -40,16 +59,19 @@ def product_edit(request, id):
         product = Product.objects.get(id=id)
         form = ProductForm(
             request.POST,
+            request.FILES,
             instance=product
         )
         if form.is_valid():
             form.save()
-            # message = "Автор был добавлен успешно!"
-            return redirect("product", id=product.id)
+            return redirect(
+                "product", id=product.id
+            )
     elif request.method == "GET":
         product = Product.objects.get(id=id)
         form = ProductForm(instance=product)
+        message = "Редактировать публикацию"
         return render(
             request, "product/form.html",
-            {"form": form}
+            {"form": form, "message": message}
         )

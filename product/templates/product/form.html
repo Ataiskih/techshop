@@ -3,6 +3,7 @@
 
 {% block content %}
     <br>
+    <h2>{{ message }}</h2>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form %}
