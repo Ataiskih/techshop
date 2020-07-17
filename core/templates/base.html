@@ -14,7 +14,11 @@
 <body>
     <div class="container-fluid">
         <br>
-        <h3>Добро пожаловать в интернет магазин Tech Shop!</h3>
+        {% if request.user.is_authenticated %}
+          <h3>{{ request.user.username }}, добро пожаловать в интернет магазин Tech Shop!</h3>
+        {% else %}
+          <h3> Вы вошли как Гость в интернет магазин Tech Shop!</h3>
+        {% endif %}
     </div>
     <br>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -53,7 +57,8 @@
           <form class="navbar-nav">
             <li class="nav-item">
                 {% if request.user.is_authenticated %}
-                    Привет, {{ request.user.username }}
+                    Привет, <a href="{% url 'profile' %}">
+                    {{ request.user.username }}</a>
                     <a href="{% url 'account_logout' %}" class="nav-link d-inline">Выйти?</a>
                 {% else %}
                     Hi Guest!

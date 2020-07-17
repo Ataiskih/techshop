@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+    <h4>Профиль пользователя: {{ request.user.username }}</h4>
+    <br>
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+              <th scope="col">#</th>
+              <th scope="col">Username</th>
+            <th scope="col">Имя</th>
+            <th scope="col">Фамилия</th>
+            <th scope="col">e-mail</th>
+            <th scope="col">Товаров</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>@{{ request.user.username }}</td>
+            <td>{{ request.user.first_name }}</td>
+            <td>{{ request.user.last_name }}</td>
+            <td>{{ request.user.email }}</td>
+            <td>{{ request.user.product.count }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>Все товары: {{ request.user.username }}</h4>
+        <br>
+        {% include "includes/products.html" %}
+{% endblock %}

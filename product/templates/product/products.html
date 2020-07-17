@@ -3,25 +3,5 @@
     {% block content %}
     {% include "includes/alert.html" %}
     <br>
-    <div class="container-fluid text-center bg-grey">
-        <h2>Все товары в наличии</h2><br>
-        <div class="row text-center">
-        {% for product in products %}
-          <div class="col-sm-4">
-            <div class="thumbnail">
-                <a href="{% url 'product' product.id %}">
-            {% if product.image %}
-              <img src="{{ product.image.url }}" alt="Paris" width="200px">
-            {% endif %}
-        </a>
-        <a href="{% url 'product' product.id %}">
-              <p><strong>{{ product.name }}</strong></p>
-            </a>
-              <p><strong>{{ product.price|floatformat:0 }} сом</strong></p>
-              <p>{{ product.category }}</p>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-    </div>
+    {% include "includes/products.html" %}
     {% endblock %}
