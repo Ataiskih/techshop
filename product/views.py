@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required, \
+    user_passes_test
+from django.db.models import Q
 from product.models import Product, Category
 from product.forms import ProductForm
-from django.db.models import Q
 
 
 def products(request):
@@ -31,14 +33,17 @@ def product(request, id):
     )
 
 
+@login_required(login_url="/login/")
 def product_create(request):
     if request.method == "POST":
-        form = ProductForm(
+        form = ProductForm( 
             request.POST,
             request.FILES
         )
         if form.is_valid():
-            form.save()
+            new_product = form.save()
+            new_product.user =request.user
+            new_product.save()
             alert = "Товар был добавлен успешно!"
             return render(
                 request,
@@ -54,10 +59,12 @@ def product_create(request):
             {"form": form, "message": message}
         )
 
-
+@login_required(login_url="/login/")        # проверка авториз
 def product_edit(request, id):
     if request.method == "POST":
         product = Product.objects.get(id=id)
+        if request.user != product.user:
+            return redirect("home")
         form = ProductForm(
             request.POST,
             request.FILES,
@@ -72,6 +79,8 @@ def product_edit(request, id):
             )
     elif request.method == "GET":
         product = Product.objects.get(id=id)
+        if request.user != product.user:
+            return redirect("home")
         form = ProductForm(instance=product)
         message = "Редактировать публикацию"
         return render(

@@ -8,6 +8,14 @@ class Product(models.Model):
         max_length=255,
         verbose_name="название"
     )
+    user = models.ForeignKey(
+        to=User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="product",
+        verbose_name="Автор"
+    )
     image = models.ImageField(
         null=True,
         blank=True,
