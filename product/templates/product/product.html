@@ -11,25 +11,43 @@
     <div class="col-lg-9 col-md-6 col-sm-12">
         <h4>{{ product.name }} - 
             {% if product.availability_in_store %}
-                <button class="btn btn-success">Есть в наличии</button>
+                <button class="btn btn-sm btn-success">Есть в наличии</button>
             {% else %}
                 <button class="btn btn-warning">Под заказ</button>
             {% endif %}</h4>
         <h4>{{ product.price }} сом</h4>
-        <div>Описание товара: {{ product.description|linebreaks }}</div>
+    <div>
+        Описание товара: {{ product.description|linebreaks }}
+    </div>
             <br>
-            Категории: {{ product.category }}
-            {% if request.user == product.user %}
-                <div class="form-row text-right">
-                    <div class="col-12">
-                        <a href="{% url 'product-edit' product.id %}">
-                            <button class="btn btn-warning">
-                                Редактировать
-                            </button>
-                        </a>
-                    </div>
+    <div> 
+        Категории: {{ product.category }}
+    </div>
+    <div>
+        Продавец: 
+        <a href="{% url 'profile' product.user.pk %}">
+            {{ product.user }}
+        </a> 
+    </div>
+        {% if request.user == product.user %}
+            <div class="form-row text-right">
+                <div class="col-12">
+                    <a href="{% url 'product-edit' product.id %}">
+                        <button class="btn btn-sm btn-warning">
+                            Редактировать
+                        </button>
+                    </a>
+        <br>
+        <br>
+                    <form method="POST" action="{% url 'product-delete' product.id %}">
+                            {% csrf_token %}
+                        <button class="btn btn-sm btn-danger" name="delete_btn">
+                            Удалить
+                        </button>
+                    </form> 
                 </div>
-            {% endif %}
+            </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

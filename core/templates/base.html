@@ -47,7 +47,6 @@
             </div>
           </li>
         </ul>
-
         <form class="form-inline" action="{% url 'products' %}">
             {% csrf_token %}
             <input class="form-control mr-sm-2" type="text" name="key_word" placeholder="Ключевое слово">
@@ -57,11 +56,16 @@
           <form class="navbar-nav">
             <li class="nav-item">
                 {% if request.user.is_authenticated %}
-                    Привет, <a href="{% url 'profile' %}">
-                    {{ request.user.username }}</a>
+                    <a href="#" class="nav-link d-inline">
+                        Привет, 
+                    </a> 
+                    <a href="{% url 'profile' user.pk %}">
+                      {{ request.user.username }}</a>
                     <a href="{% url 'account_logout' %}" class="nav-link d-inline">Выйти?</a>
                 {% else %}
-                    Hi Guest!
+                    <a href="#" class="nav-link d-inline">
+                      Привет, Гость
+                    </a> 
                     <a href="{% url 'account_login' %}" class="nav-link d-inline">Войти?</a>
 
                 {% endif %}

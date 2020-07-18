@@ -9,13 +9,10 @@ def home(request):
 
 
 @login_required(login_url="/login/")
-def profile(request):
-    products = Product.objects.filter(
-        availability_in_store=True,
-        user=request.user
-    )
+def profile_user(request, pk):
+    user = User.objects.get(pk=pk)
     return render(
-        request, 
+        request,
         "core/profile.html",
-        {"products": products}
+        {'user': user}
     )

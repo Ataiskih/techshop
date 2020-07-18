@@ -59,6 +59,7 @@ def product_create(request):
             {"form": form, "message": message}
         )
 
+
 @login_required(login_url="/login/")        # проверка авториз
 def product_edit(request, id):
     if request.method == "POST":
@@ -87,3 +88,13 @@ def product_edit(request, id):
             request, "product/form.html",
             {"form": form, "message": message}
         )
+
+
+@login_required(login_url="/login/")
+def delete_post(request, id):
+    if request.method == 'POST':
+        post = Product.objects.get(pk=id)
+        post.availability_in_store = False
+        post.save()
+        return redirect('products')
+    return render(request, 'product/product.html')
