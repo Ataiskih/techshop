@@ -36,13 +36,13 @@ def product(request, id):
 @login_required(login_url="/login/")
 def product_create(request):
     if request.method == "POST":
-        form = ProductForm( 
+        form = ProductForm(
             request.POST,
             request.FILES
         )
         if form.is_valid():
             new_product = form.save()
-            new_product.user =request.user
+            new_product.user = request.user
             new_product.save()
             alert = "Товар был добавлен успешно!"
             return render(
