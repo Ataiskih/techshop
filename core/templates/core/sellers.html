@@ -16,7 +16,13 @@
             {% for seller in sellers %}
                 <tr>
                     <th scope="row">{{ seller.id }}</th>
-                    <td>@{{ seller }}</td>
+                    <td>
+                      <div>
+                        <a href="">
+                          @{{ seller }}
+                        </a>
+                      </div>
+                    </td>
                     <td>{{ seller.first_name }}</td>
                     <td>{{ seller.last_name }}</td>
                     <td>{{ seller.email }}</td>

@@ -13,8 +13,8 @@ def products(request):
         products = Product.objects.filter(
             Q(availability_in_store=True),
             Q(deleted=False),
-            Q(name__icontains=key) |
-            Q(description__icontains=key) |
+            Q(name__contains=key) |
+            Q(description__contains=key) |
             Q(category__name__contains=key)
         )
         products = products.distinct()
