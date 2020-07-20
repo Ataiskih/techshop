@@ -16,3 +16,16 @@ def profile_user(request, pk):
         "core/profile.html",
         {'user': user}
     )
+
+
+def sellers(request):
+    # исключение у кого товаров нет:
+    # или products = Products.objects.all()
+    # User.objects.filter(product__in=products).distinct()
+    sellers = User.objects.exclude(
+        product=None
+    )
+    return render(
+        request, "core/sellers.html",
+        {"sellers": sellers}
+    )

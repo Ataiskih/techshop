@@ -12,6 +12,7 @@ def products(request):
         key = request.GET.get("key_word")
         products = Product.objects.filter(
             Q(availability_in_store=True),
+            Q(deleted=False),
             Q(name__icontains=key) |
             Q(description__icontains=key) |
             Q(category__name__contains=key)
@@ -19,7 +20,9 @@ def products(request):
         products = products.distinct()
     else:
         products = Product.objects.filter(
-            availability_in_store=True)
+            # availability_in_store=True,
+            deleted=False
+        )
     return render(
         request, "product/products.html",
         {"products": products})
@@ -94,7 +97,11 @@ def product_edit(request, id):
 def delete_post(request, id):
     if request.method == 'POST':
         post = Product.objects.get(pk=id)
-        post.availability_in_store = False
+        post.deleted = True
         post.save()
-        return redirect('products')
+        alert = "Вы удалили публикацию"
+        return render(
+            request,
+            "product/products.html",
+            {'alert': alert})
     return render(request, 'product/product.html')

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+    <br>
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Username</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Фамилия</th>
+                <th scope="col">e-mail</th>
+                <th scope="col">Товаров</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for seller in sellers %}
+                <tr>
+                    <th scope="row">{{ seller.id }}</th>
+                    <td>@{{ seller }}</td>
+                    <td>{{ seller.first_name }}</td>
+                    <td>{{ seller.last_name }}</td>
+                    <td>{{ seller.email }}</td>
+                    <td>{{ seller.product.count }}</td>
+                </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+{% endblock %}

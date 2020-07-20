@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
-<br>
 {% include "includes/alert.html" %}
 <div class="row">
     <div class="col-lg-3 col-md-6 col-sm-12">
@@ -24,10 +23,12 @@
         Категории: {{ product.category }}
     </div>
     <div>
-        Продавец: 
-        <a href="{% url 'profile' product.user.pk %}">
-            {{ product.user }}
-        </a> 
+        {% if product.user %}
+            Продавец: 
+            <a href="{% url 'profile' product.user.pk %}">
+                {{ product.user }}
+            </a> 
+        {% endif %}
     </div>
         {% if request.user == product.user %}
             <div class="form-row text-right">
@@ -37,8 +38,8 @@
                             Редактировать
                         </button>
                     </a>
-        <br>
-        <br>
+                        <br>
+                        <br>
                     <form method="POST" action="{% url 'product-delete' product.id %}">
                             {% csrf_token %}
                         <button class="btn btn-sm btn-danger" name="delete_btn">

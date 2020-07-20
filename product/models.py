@@ -50,6 +50,10 @@ class Product(models.Model):
         default=True,
         verbose_name="наличие в магазине"
     )
+    deleted = models.BooleanField(
+        default=False,
+        verbose_name="Скрыт от пользователей"
+    )
 
     def __str__(self):
         return self.name
