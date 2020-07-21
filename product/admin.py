@@ -2,8 +2,11 @@ from django.contrib import admin
 from product.models import Product, Category
 
 
+@admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     model = Product
+    # получение всех полей от 1 до последнего
+    # fields = [field.name for field in Product._meta.get_fields()[1:]]
     # отображение полей в товаре
     fields = [
         "name", "user", "category",
@@ -46,10 +49,12 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ["category"]
 
 
+@admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     model = Category
     fields = ["name"]
     list_display = ["id", "name"]
     list_editable = ["name"]
-admin.site.register(Product, ProductAdmin)
-admin.site.register(Category, CategoryAdmin)
+# способ №2 без декоратора (стр 5, 50)
+# admin.site.register(Product, ProductAdmin)
+# admin.site.register(Category, CategoryAdmin)
