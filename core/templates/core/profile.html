@@ -2,13 +2,14 @@
 
 {% block content %}
     <br>
-    <h4>Профиль пользователя: {{ user.username }}</h4>
+    <h4>
+      Профиль пользователя: {{ user.username }}
+    </h4>
     <br>
     <table class="table">
         <thead class="thead-dark">
           <tr>
-                <th scope="col">#</th>
-                <th scope="col">Username</th>
+                <th scope="col">Имя пользователя</th>
                 <th scope="col">Имя</th>
                 <th scope="col">Фамилия</th>
                 <th scope="col">e-mail</th>
@@ -17,7 +18,6 @@
         </thead>
         <tbody>
           <tr>
-            <th scope="row">1</th>
             <td>@{{ user.username }}</td>
             <td>{{ user.first_name }}</td>
             <td>{{ user.last_name }}</td>

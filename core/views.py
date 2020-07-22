@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from product.models import Product
+from core.forms import UserForm
 
 
 def home(request):
@@ -16,6 +17,35 @@ def profile_user(request, pk):
         "core/profile.html",
         {'user': user}
     )
+
+
+@login_required(login_url="/login/")
+def profile_edit(request,id):
+    user = User.objects.get(id=id)
+    if request.method == "POST":
+        if request.user != user:
+            return redirect(home)
+        else:
+            form = UserForm(
+            request.POST,
+            instance=user
+        )
+        if form.is_valid():
+            form.save()
+            return render(
+                request,
+                "core/profile_edit.html",
+                {'user': user}
+            )
+    elif request.method == "GET":
+        if request.user == user:
+            return render(
+                request,
+                "core/profile_edit.html",
+                {'user': user}
+        )
+        else:
+            return redirect(home)
 
 
 def sellers(request):

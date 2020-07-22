@@ -69,28 +69,30 @@ def product_edit(request, id):
         product = Product.objects.get(id=id)
         if request.user != product.user:
             return redirect("home")
-        form = ProductForm(
-            request.POST,
-            request.FILES,
-            instance=product
-        )
-        if form.is_valid():
-            form.save()
-            alert = "Вы изменили публикацию"
-            return render(
-                request, "product/product.html",
-                {'alert': alert, 'product': product}
+        else:
+            form = ProductForm(
+                request.POST,
+                request.FILES,
+                instance=product
             )
+            if form.is_valid():
+                form.save()
+                alert = "Вы изменили публикацию"
+                return render(
+                    request, "product/product.html",
+                    {'alert': alert, 'product': product}
+                )
     elif request.method == "GET":
         product = Product.objects.get(id=id)
         if request.user != product.user:
             return redirect("home")
-        form = ProductForm(instance=product)
-        message = "Редактировать публикацию"
-        return render(
-            request, "product/form.html",
-            {"form": form, "message": message}
-        )
+        else:
+            form = ProductForm(instance=product)
+            message = "Редактировать публикацию"
+            return render(
+                request, "product/form.html",
+                {"form": form, "message": message}
+            )
 
 
 @login_required(login_url="/login/")

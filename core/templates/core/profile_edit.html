@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if request.user.is_authenticated and request.user %}
+
+<br>
+    <div id="accordion">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Изменить персональную информацию
+              </button>
+            </h5>
+          </div>
+
+          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+                <form class="needs-validation" novalidate>
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label for="validationTooltipUsername">Имя пользователя</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
+                              </div>
+                              <input type="text" class="form-control" id="validationTooltipUsername" placeholder="Имя пользователя" aria-describedby="validationTooltipUsernamePrepend" required>
+                              <div class="invalid-tooltip">
+                                Please choose a unique and valid username.
+                              </div>
+                            </div>
+                          </div>
+                      <div class="col-md-4 mb-3">
+                        <label for="validationTooltip01">Имя</label>
+                        <input type="text" class="form-control" id="validationTooltip01" placeholder="Имя" value="{{ user.first_name }}" required>
+                        <div class="valid-tooltip">
+                          Looks good!
+                        </div>
+                      </div>
+                      <div class="col-md-4 mb-3">
+                        <label for="validationTooltip02">Фамилия</label>
+                        <input type="text" class="form-control" id="validationTooltip02" placeholder="Фамилия" value="{{ user.last_name }}" required>
+                        <div class="valid-tooltip">
+                          Looks good!
+                        </div>
+                      </div>
+                    </div>
+                </form>
+            </div>
+          </div>
+        </div>
+        <br>
+        <br>
+        <div class="card">
+          <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Изменить Ваш e-mail и номер телефона
+              </button>
+            </h5>
+          </div>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+            <div class="card-body">
+                <form>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="inputEmail4">Старый Email</label>
+                        <input type="email" class="form-control" id="inputEmail4" placeholder="Введите старый Email">
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="inputEmail4">Новый Email</label>
+                        <input type="email" class="form-control" id="inputEmail4" placeholder="Введите новый Email">
+                      </div>
+                    </div>
+                  </form>
+            </div>
+          </div>
+        </div>
+        <br>
+        <br>
+        <div class="card">
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Изменить пароли
+              </button>
+            </h5>
+          </div>
+          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+            <div class="card-body">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">Старый пароль</label>
+                            <input type="password" class="form-control" id="inputPassword4" placeholder="Введите старый пароль">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputPassword4">Новый пароль</label>
+                            <input type="password" class="form-control" id="inputPassword4" placeholder="Введите новый пароль">
+                          </div>
+                    </div>
+                  </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <br>
+    <button class="btn btn-primary" type="submit">Сохранить</button>
+{% endif %}
+{% endblock %}
