@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from product.models import Product
-from core.forms import UserForm
+from core.forms import MyCustomChangePasswordForm, \
+    ChangePersonalInfo
 
 
 def home(request):
@@ -26,17 +27,33 @@ def profile_edit(request,id):
         if request.user != user:
             return redirect(home)
         else:
-            form = UserForm(
-            request.POST,
-            instance=user
-        )
-        if form.is_valid():
-            form.save()
+            user = request.user
+            password_1 = request.POST.get("password1")
+            password_2 = request.POST.get("password2")
+            if password_1 == password_2:
+                user.set_password(password_1)
+                user.save()
             return render(
                 request,
                 "core/profile_edit.html",
                 {'user': user}
             )
+    elif request.method == "POST":
+        if "save" in request.POST: 
+            user = User.objects.get(id=id)
+            if request.user != user:
+                return redirect(home)
+            else:
+                form = ChangePersonalInfo(request.POST,
+                instance=user)
+                if form.is_valid():
+                    form.save()
+                    print(form)
+                    return (request, "core/profile_edit.html", {"user":user})
+                    
+
+            
+
     elif request.method == "GET":
         if request.user == user:
             return render(

@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-{% if request.user.is_authenticated and request.user %}
+{% if request.user.is_authenticated and request.user == user %}
 
-<br>
+    <br>
     <div id="accordion">
         <div class="card">
           <div class="card-header" id="headingOne">
@@ -15,7 +15,8 @@
 
           <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body">
-                <form class="needs-validation" novalidate>
+              <form name="save" class="needs-validation" novalidate method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
                             <label for="validationTooltipUsername">Имя пользователя</label>
@@ -44,6 +45,7 @@
                         </div>
                       </div>
                     </div>
+                    <button type="submit">Save</button>
                 </form>
             </div>
           </div>
@@ -68,9 +70,10 @@
                       </div>
                       <div class="form-group col-md-6">
                         <label for="inputEmail4">Новый Email</label>
-                        <input type="email" class="form-control" id="inputEmail4" placeholder="Введите новый Email">
+                        <input name='new_email' type="email" class="form-control" id="inputEmail4" placeholder="Введите новый Email">
                       </div>
                     </div>
+                    <button class="btn btn-sm btn-primary">Сменить пароль</button>
                   </form>
             </div>
           </div>
@@ -87,17 +90,23 @@
           </div>
           <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
             <div class="card-body">
-                <form>
+                <form method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label for="inputPassword4">Старый пароль</label>
-                            <input type="password" class="form-control" id="inputPassword4" placeholder="Введите старый пароль">
+                            <input type="password" name ="oldpassword" class="form-control" id="inputPassword4" placeholder="Введите старый пароль">
                           </div>
-                          <div class="form-group col-md-6">
+                          <div class="form-group col-md-4">
                             <label for="inputPassword4">Новый пароль</label>
-                            <input type="password" class="form-control" id="inputPassword4" placeholder="Введите новый пароль">
+                            <input type="password" name="password1" class="form-control" id="inputPassword4" placeholder="Введите новый пароль">
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label for="inputPassword4">Потверждение нового пароля</label>
+                            <input type="password" name="password2" class="form-control" id="inputPassword4" placeholder="Потвердите новый пароль">
                           </div>
                     </div>
+                    <button class="btn btn-sm btn-primary">Сменить пароль</button>
                   </form>
             </div>
           </div>
@@ -105,6 +114,5 @@
       </div>
       <br>
       <br>
-    <button class="btn btn-primary" type="submit">Сохранить</button>
 {% endif %}
 {% endblock %}
