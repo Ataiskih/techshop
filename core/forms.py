@@ -1,11 +1,13 @@
-from allauth.account.forms import ChangePasswordForm, AddEmailForm
+from allauth.account.forms import ChangePasswordForm, \
+    AddEmailForm, PasswordField, SetPasswordField
 from django import forms
 from django.contrib.auth.models import User
 
+
 class MyCustomChangePasswordForm(ChangePasswordForm):
-    oldpassword = ChangePasswordForm()
-    password1 = ChangePasswordForm()
-    password2 = ChangePasswordForm()
+    oldpassword = PasswordField()
+    password1 = SetPasswordField()
+    password2 = PasswordField()
 
 class ChangePersonalInfo(forms.ModelForm):
     class Meta:

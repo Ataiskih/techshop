@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from product.models import Product
 from core.forms import MyCustomChangePasswordForm, \
     ChangePersonalInfo
+    
 
 
 def home(request):
@@ -23,7 +25,7 @@ def profile_user(request, pk):
 @login_required(login_url="/login/")
 def profile_edit(request,id):
     user = User.objects.get(id=id)
-    if request.method == "POST":
+    if request.method == "POST" and "change_password" in request.POST:
         if request.user != user:
             return redirect(home)
         else:
@@ -33,34 +35,28 @@ def profile_edit(request,id):
             if password_1 == password_2:
                 user.set_password(password_1)
                 user.save()
-            return render(
-                request,
-                "core/profile_edit.html",
-                {'user': user}
+            return HttpResponseRedirect(
+                request.path_info
             )
-    elif request.method == "POST":
-        if "save" in request.POST: 
-            user = User.objects.get(id=id)
-            if request.user != user:
-                return redirect(home)
-            else:
-                form = ChangePersonalInfo(request.POST,
+    elif request.method == "POST" and "edit_profile" in request.POST:
+        if request.user != user:
+            return redirect(home)
+        else:
+            form = ChangePersonalInfo(
+                request.POST,
                 instance=user)
-                if form.is_valid():
-                    form.save()
-                    print(form)
-                    return (request, "core/profile_edit.html", {"user":user})
-                    
-
-            
-
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect(
+                    request.path_info
+                )
     elif request.method == "GET":
         if request.user == user:
             return render(
                 request,
                 "core/profile_edit.html",
                 {'user': user}
-        )
+            )
         else:
             return redirect(home)
 
