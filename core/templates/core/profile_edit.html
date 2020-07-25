@@ -2,6 +2,14 @@
 {% block content %}
 {% if request.user.is_authenticated and request.user == user %}
     <br>
+    {% if messages %}
+      {% for message in messages %}
+          <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
+            {{ message }}
+          </div>
+      {% endfor %}
+    {% endif %}
+    <br>
     <h2>Редактировать профиль</h2>
     <br>
     <div id="accordion">
@@ -104,7 +112,29 @@
                         <input name='new_email' type="email" class="form-control" id="inputEmail4" placeholder="Введите новый Email">
                       </div>
                     </div>
-                    <button name="change_email" class="btn btn-primary">Да</button>
+
+                       <!-- Button trigger modal  -->
+                       <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        Сменить e-mail
+                      </button>
+
+                      <!-- Modal  -->
+                      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"   aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Сменить пароль?</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Нет</button>
+                              <button name="change_email" class="btn btn-primary">Да</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                   </form>
             </div>
           </div>
@@ -124,6 +154,7 @@
             <div class="card-body">
                 <form method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
+
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="inputPassword4">Старый пароль</label>
@@ -139,13 +170,13 @@
                           </div>
                     </div>
 
-                                            <!-- Button trigger modal -->
+                                             <!-- Button trigger modal  -->
                         <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
                           Сменить пароль
                         </button>
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <!-- Modal  -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"   aria-labelledby="exampleModalLabel" aria-hidden="true">
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
                               <div class="modal-header">

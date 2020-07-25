@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.shortcuts import redirect
 
 
 class Product(models.Model):
@@ -62,16 +61,3 @@ class Product(models.Model):
         verbose_name = "товар"
         verbose_name_plural = "товары"
         ordering = ["name"]
-
-
-class Category(models.Model):
-    name = models.CharField(
-        max_length=255,
-        verbose_name="название")
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = "категория"
-        verbose_name_plural = "категории"
