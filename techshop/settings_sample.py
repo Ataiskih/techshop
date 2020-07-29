@@ -8,7 +8,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+SECRET_KEY = ')^ul^ox1y&wak3$enzr^6_p7)ay5(#na5l+7msmy58)0tosh80'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -19,13 +19,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'grappelli',
+    'filebrowser',
+    'django.contrib.admin',
     'allauth.socialaccount.providers.google',
     "core",
     "product",
@@ -34,6 +36,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'order'
 ]
 
 SITE_ID = 1
@@ -125,6 +128,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/product/all/'
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
@@ -139,10 +143,12 @@ ACCOUNT_PRESERVE_USERNAME_CASING = False
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 ACCOUNT_USERNAME_MIN_LENGTH = 2
-
 EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
+
+FILEBROWSER_DIRECTORY = ''
+DIRECTORY = ''
