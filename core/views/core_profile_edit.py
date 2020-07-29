@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from core.forms.core_change_password import MyCustomChangePasswordForm
+# from core.views.core_profile import profile_user
 
 
 @login_required(login_url="/login/")
@@ -48,6 +49,16 @@ def profile_edit(request, id):
         if request.user != user:
             return redirect(home)
         else:
+            # вариант с стандартой формой
+            # form = auth.forms.PasswordChangeForm(
+            #     data=request.POST, 
+            #     user=request.user)
+            # if form.is_valid():
+            #     form.save()
+            #     auth.update_session_auth_hash(
+            #         request, form.user)
+            #     # messages.success(request, 'Ваш пароль был успешно изменен.')
+            #     return redirect('profile_user', id=user.id)
             form = MyCustomChangePasswordForm(
                 data=request.POST,
                 user=request.user

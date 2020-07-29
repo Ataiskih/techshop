@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load bootstrap4 %}
 {% if request.user.is_authenticated and request.user == user %}
     <br>
     {% if messages %}
@@ -152,9 +153,13 @@
           </div>
           <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
             <div class="card-body">
+              <!-- <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <button name="change_password" class="btn btn-outline-primary btn-sm btn-block" type="submit">Изменить</button>
+              </form>  -->
                 <form method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
-
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="inputPassword4">Старый пароль</label>
@@ -170,12 +175,12 @@
                           </div>
                     </div>
 
-                                             <!-- Button trigger modal  -->
+                                              <!-- Button trigger modal  -->
                         <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
                           Сменить пароль
                         </button>
 
-                        <!-- Modal  -->
+                         <!-- Modal   -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"   aria-labelledby="exampleModalLabel" aria-hidden="true">
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">

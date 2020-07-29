@@ -92,17 +92,21 @@
                   {% endif %}
               </form>
       </nav>
+      <br>
       <div class="row container-fluid">
             <div class="col-lg-3 col-md-2 col-sm-12">
-              боковая панель<br>
-              боковая панель<br>
-              боковая панель<br>
-              боковая панель<br>
-              боковая панель<br>
-              боковая панель<br>
-              боковая панель<br>
-              боковая панель<br>
-              боковая панель<br>
+              <div class="list-group">
+              {% for category in categories %}
+                <a  href="{% url 'category' category.id %}"
+                    class="list-group-item
+                    {% if category.id == category_pk %}
+                      list-group-item-dark
+                    {% endif %}
+                ">
+                    {{ category.name }}
+                </a>
+              {% endfor %}
+              </div>
             </div>
         
             <div class="col-lg-9 col-md-10 col-sm-12">
