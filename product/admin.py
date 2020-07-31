@@ -1,5 +1,5 @@
 from django.contrib import admin
-from product.models import Product, Category
+from product.models import Product, Category, Images
 
 
 @admin.register(Product)
@@ -58,3 +58,6 @@ class CategoryAdmin(admin.ModelAdmin):
 # способ №2 без декоратора (стр 5, 50)
 # admin.site.register(Product, ProductAdmin)
 # admin.site.register(Category, CategoryAdmin)
+# admin.site.register(Product)
+
+admin.site.register(Images)

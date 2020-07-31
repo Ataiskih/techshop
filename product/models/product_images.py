@@ -9,3 +9,7 @@ class Images(models.Model):
         upload_to="product_images",
         verbose_name="дополнительные изображения товаров"
     )
+
+    class Meta:
+        verbose_name = "Дополнительные фотографии"
+        verbose_name_plural = "Дополнительные фотографии"
