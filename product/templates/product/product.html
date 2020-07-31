@@ -15,21 +15,21 @@
                 <button class="btn btn-warning">Под заказ</button>
             {% endif %}</h4>
         <h4>{{ product.price }} сом</h4>
-    <div>
-        Описание товара: {{ product.description|linebreaks }}
-    </div>
+        <div>
+            Описание товара: {{ product.description|linebreaks }}
+        </div>
             <br>
-    <div> 
-        Категории: {{ product.category }}
-    </div>
-    <div>
-        {% if product.user %}
-            Продавец: 
-            <a href="{% url 'profile' product.user.pk %}">
-                {{ product.user }}
-            </a> 
-        {% endif %}
-    </div>
+        <div> 
+            Категории: {{ product.category }}
+        </div>
+        <div>
+            {% if product.user %}
+                Продавец: 
+                <a href="{% url 'profile' product.user.pk %}">
+                    {{ product.user }}
+                </a> 
+            {% endif %}
+        </div>
         {% if request.user == product.user %}
             <div class="form-row text-right">
                 <div class="col-12">
@@ -50,5 +50,6 @@
             </div>
         {% endif %}
     </div>
+    
 </div>
 {% endblock %}

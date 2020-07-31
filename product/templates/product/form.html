@@ -7,12 +7,12 @@
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <!-- <br>
+        <br>
             {{ formset.management_form }}
         {% for form in formset %}
             {% bootstrap_form form %}
         {% endfor %}
-        <br> -->
+        <br>
         <button  class="btn btn-success" type="submit">Добавить</button>
     </form>
 {% endblock %}

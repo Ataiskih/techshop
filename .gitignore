@@ -6,3 +6,4 @@ techshop/settings.py
 static
 media/_versions
 media/product_image
+media/product_images
