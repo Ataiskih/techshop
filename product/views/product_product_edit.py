@@ -8,24 +8,26 @@ from core.views.core_home import home
 from django.forms import modelformset_factory
 
 
-@login_required(login_url="/login/")        # проверка авториз
+@login_required(login_url="/login/")
 def product_edit(request, id):
     if request.method == "POST":
         product = Product.objects.get(id=id)
+        images = Images.objects.filter(post=product)
+        ImageFormSet = modelformset_factory(
+            Images, form=ImageForm)
         if request.user != product.user:
-            return redirect("home")
+            return redirect(home)
         else:
-            form = ProductForm(
-                request.POST,
-                request.FILES,
-                instance=product
-            )
-            if form.is_valid():
+            form = ProductForm(request.POST, request.FILES, instance=product)
+            formset = ImageFormSet(data=request.POST, files=request.FILES, instance=product)
+            if form.is_valid() and formset.is_valid():
                 form.save()
+                formset.save()
                 alert = "Вы изменили публикацию"
                 return render(
                     request, "product/product.html",
-                    {'alert': alert, 'product': product}
+                    {'alert': alert, 'product': product,
+                    "images": images}
                 )
     elif request.method == "GET":
         product = Product.objects.get(id=id)
@@ -33,7 +35,7 @@ def product_edit(request, id):
         ImageFormSet = modelformset_factory(
             Images, form=ImageForm)
         if request.user != product.user:
-            return redirect("home")
+            return redirect(home)
         else:
             form = ProductForm(instance=product)
             formset = ImageFormSet(queryset=images)
