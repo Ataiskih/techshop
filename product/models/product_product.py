@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from product.models.product_category import Category
-from product.models.product_images import Images
 
 
 class Product(models.Model):
@@ -23,14 +22,6 @@ class Product(models.Model):
         upload_to="product_image",
         verbose_name="изображение товара",
         default="static/no_image.png"
-    )
-    images = models.ForeignKey(
-        Images,
-        on_delete=models.SET_NULL,
-        related_name="product",
-        null=True,
-        blank=True,
-        verbose_name="категория"
     )
     category = models.ForeignKey(
         "Category",

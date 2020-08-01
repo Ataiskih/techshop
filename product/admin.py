@@ -18,7 +18,8 @@ class ProductAdmin(admin.ModelAdmin):
     readonly_fields = [
         "name", "user",
         "price", "quantity_purchases",
-        "availability_in_store", "deleted",
+        "availability_in_store", 
+        # "deleted",
         "description"
     ]
     # отображение в продукуте

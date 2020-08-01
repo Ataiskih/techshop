@@ -1,8 +1,15 @@
 from django.db import models
-from django.contrib.auth.models import User
+from product.models.product_product import Product
 
 
 class Images(models.Model):
+    post = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="images"
+        )
     image = models.ImageField(
         null=True,
         blank=True,

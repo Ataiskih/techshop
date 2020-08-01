@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from product.models.product_product import Product
 
@@ -9,9 +10,8 @@ def delete_post(request, id):
         post = Product.objects.get(pk=id)
         post.deleted = True
         post.save()
-        alert = "Вы удалили публикацию"
-        return render(
-            request,
-            "product/products.html",
-            {'alert': alert})
+        messages.success(
+            request, 
+            'Вы удалили публикацию')
+        return redirect('/product/all/')
     return render(request, 'product/product.html')

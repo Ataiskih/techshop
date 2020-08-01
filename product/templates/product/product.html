@@ -30,10 +30,17 @@
                 </a> 
             {% endif %}
         </div>
-        {% for image in product.images %}
-            <img src="{{ image.image.url }}" width="200px">
-                 {{ image.image.url }}
-        {% endfor %}
+        <div>
+            Дополнитыльные фото:
+            <br><br>    
+            {% if images %}
+                {% for img in images %}
+                    <img src="{{ img.image.url }}" width="200px">
+                    &#8195;
+                {% endfor %}
+            {% endif %}
+        </div>
+        <br>
         {% if request.user == product.user %}
             <div class="form-row text-right">
                 <div class="col-12">
@@ -54,6 +61,5 @@
             </div>
         {% endif %}
     </div>
-    
 </div>
 {% endblock %}

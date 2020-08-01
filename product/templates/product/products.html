@@ -1,7 +1,16 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
     {% block content %}
-        {% include "includes/alert.html" %}
+        <!-- {% include "includes/alert.html" %} -->
+        <!-- <br> -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
+                    {{ message }}
+                </div>
+                <br>
+            {% endfor %}
+        {% endif %}
         <br>
         {% include "includes/products.html" %}
     {% endblock %}
