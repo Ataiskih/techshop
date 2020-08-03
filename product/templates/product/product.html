@@ -30,10 +30,9 @@
                 </a> 
             {% endif %}
         </div>
-        <div>
+        <div>{% if images %}
             Дополнитыльные фото:
             <br><br>    
-            {% if images %}
                 {% for img in images %}
                     <img src="{{ img.image.url }}" width="200px">
                     &#8195;

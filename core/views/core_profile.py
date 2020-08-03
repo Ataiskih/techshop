@@ -14,5 +14,5 @@ def profile_user(request, pk):
         request,
         "core/profile.html",
         {'user': user,
-        "category_count": category_count}
+            "category_count": category_count}
     )

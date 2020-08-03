@@ -11,7 +11,7 @@ def delete_post(request, id):
         post.deleted = True
         post.save()
         messages.success(
-            request, 
+            request,
             'Вы удалили публикацию')
         return redirect('/product/all/')
     return render(request, 'product/product.html')

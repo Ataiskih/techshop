@@ -51,13 +51,13 @@ def profile_edit(request, id):
         else:
             # вариант с стандартой формой
             # form = auth.forms.PasswordChangeForm(
-            #     data=request.POST, 
+            #     data=request.POST,
             #     user=request.user)
             # if form.is_valid():
             #     form.save()
             #     auth.update_session_auth_hash(
             #         request, form.user)
-            #     # messages.success(request, 'Ваш пароль был успешно изменен.')
+            #     # messages.success(request, 'Ваш пароль был успешно изменен')
             #     return redirect('profile_user', id=user.id)
             form = MyCustomChangePasswordForm(
                 data=request.POST,

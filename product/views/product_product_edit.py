@@ -16,14 +16,9 @@ def product_edit(request, id):
         Product, Images, fields=("image",))
     if request.method == "POST":
         if request.user == product.user:
-            form = ProductForm(
-                request.POST, 
-                request.FILES, 
-                instance=product
-            )
+            form = ProductForm(request.POST, request.FILES, instance=product)
             formset = ImageFormSet(
-                request.POST, request.FILES, 
-                instance=product)
+                request.POST, request.FILES, instance=product)
             if formset.is_valid() and form.is_valid():
                 form.save()
                 formset.save()
@@ -31,7 +26,7 @@ def product_edit(request, id):
                 return render(
                     request, "product/product.html",
                     {'alert': alert, 'product': product,
-                    "images": images}
+                        "images": images}
                 )
         else:
             return redirect(home)
@@ -44,7 +39,6 @@ def product_edit(request, id):
             return redirect(home)
     return render(
         request, "product/form.html",
-        {"form": form, 
-        "formset": formset,
-        "message": message}
+        {"form": form, "formset": formset,
+            "message": message}
     )
