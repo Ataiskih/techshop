@@ -3,7 +3,6 @@ db.sqlite3
 *.pyc
 techshop/settings.py
 !media/static/
-static
 media/_versions
 media/product_image
 media/product_images
